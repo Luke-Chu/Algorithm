@@ -1,14 +1,20 @@
+package dc;
+
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 求1-n的全排列
+ */
 public class Permutations {
-    public static List<List<Integer>> generatePermutations(int n) {
+    private static List<List<Integer>> generatePermutations(int n) {
         List<List<Integer>> result = new ArrayList<>();
         List<Integer> currentPermutation = new ArrayList<>();
+        //定义变量判断在当前排列中该数字是否使用过
         boolean[] used = new boolean[n];
-
+        //调用产生某个排列的函数
         generatePermutationsHelper(n, currentPermutation, used, result);
-
+        //返回全排列结果
         return result;
     }
 
@@ -18,7 +24,7 @@ public class Permutations {
             result.add(new ArrayList<>(currentPermutation));
             return;
         }
-
+        //1-n数字都要使用
         for (int i = 0; i < n; i++) {
             if (!used[i]) {
                 // 如果数字i尚未在当前排列中使用
@@ -32,7 +38,7 @@ public class Permutations {
     }
 
     public static void main(String[] args) {
-        int n = 3; // 更改n的值以获得不同n的排列
+        int n = 4; // 更改n的值以获得不同n的排列
         List<List<Integer>> permutations = generatePermutations(n);
 
         for (List<Integer> permutation : permutations) {
