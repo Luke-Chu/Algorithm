@@ -2,6 +2,7 @@ package dc;
 
 /**
  * 在一个由元素组成的表中，出现的次数最多的元素称为众数。试写一个寻找众数的算法，并分析其计算复杂性。
+ * O(n*log(n))
  */
 public class MajorityElementFinder {
     private int countInRange(int[] nums, int num, int lo, int hi) {
