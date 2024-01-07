@@ -6,6 +6,7 @@ import java.util.Arrays;
  * 在一个圆形操场的四周摆放N堆石子，现要将石子有次序地合并成一堆，
  * 规定每次只能选相邻的2堆合并成新的一堆，并将新的一堆的石子数，记为该次合并的得分。
  * 试设计出一个算法,计算出将N堆石子合并成1堆的最小得分和最大得分。
+ * 思路：将环形转换成线形
  */
 
 public class MergeRingStones {
@@ -23,16 +24,14 @@ public class MergeRingStones {
             w[i] = piles[i % n];
         }
         //计算前缀和
-        for (int i = 0; i < 2 * n; i++) {
-            if (i == 0) s[i] = w[i];
-            else s[i] = s[i - 1] + w[i];
+        s[0] = w[0];
+        for (int i = 1; i < 2 * n; i++) {
+            s[i] = s[i - 1] + w[i];
         }
         //数组初始化
         for (int i = 0; i < 2 * n; i++) {
             Arrays.fill(f[i], Integer.MAX_VALUE);
             Arrays.fill(g[i], Integer.MIN_VALUE);
-        }
-        for (int i = 0; i < 2 * n; i++) {
             f[i][i] = 0;
             g[i][i] = 0;
         }
@@ -56,7 +55,6 @@ public class MergeRingStones {
             minScore = Math.min(minScore, f[i][i + n - 1]);
             maxScore = Math.max(maxScore, g[i][i + n - 1]);
         }
-
         System.out.println("最小得分：" + minScore);
         System.out.println("最大得分：" + maxScore);
     }
