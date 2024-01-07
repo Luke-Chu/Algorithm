@@ -7,42 +7,36 @@ import java.util.List;
  * 求1-n的全排列
  */
 public class Permutations {
-    private static List<List<Integer>> generatePermutations(int n) {
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> currentPermutation = new ArrayList<>();
-        //定义变量判断在当前排列中该数字是否使用过
-        boolean[] used = new boolean[n];
-        //调用产生某个排列的函数
-        generatePermutationsHelper(n, currentPermutation, used, result);
-        //返回全排列结果
-        return result;
-    }
+    public static final int N = 4;  //全排列大小N
+    public static final List<List<Integer>> res = new ArrayList<>();    //存储结果
 
-    private static void generatePermutationsHelper(int n, List<Integer> currentPermutation, boolean[] used, List<List<Integer>> result) {
-        if (currentPermutation.size() == n) {
+    public static void main(String[] args) {
+        List<Integer> curPer = new ArrayList<>();
+        //定义变量判断在当前排列中该数字是否使用过
+        boolean[] used = new boolean[N];
+        //调用产生某个排列的函数
+        backTracking(curPer, used);
+        //输出排列结果
+        for (List<Integer> permutation : res) {
+            System.out.println(permutation);
+        }
+    }
+    private static void backTracking(List<Integer> curPer, boolean[] used) {
+        if (curPer.size() == N) {
             // 当当前排列的大小达到n时，将其添加到结果列表中
-            result.add(new ArrayList<>(currentPermutation));
+            res.add(new ArrayList<>(curPer));
             return;
         }
         //1-n数字都要使用
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < N; i++) {
             if (!used[i]) {
                 // 如果数字i尚未在当前排列中使用
                 used[i] = true;
-                currentPermutation.add(i + 1); // 添加1到n的数字
-                generatePermutationsHelper(n, currentPermutation, used, result);
-                currentPermutation.remove(currentPermutation.size() - 1); // 回溯
-                used[i] = false;
+                curPer.add(i + 1); // 添加1到n的数字
+                backTracking(curPer, used);     //递归调用
+                curPer.remove(curPer.size() - 1); // 回溯
+                used[i] = false;    //回溯
             }
-        }
-    }
-
-    public static void main(String[] args) {
-        int n = 4; // 更改n的值以获得不同n的排列
-        List<List<Integer>> permutations = generatePermutations(n);
-
-        for (List<Integer> permutation : permutations) {
-            System.out.println(permutation);
         }
     }
 }
