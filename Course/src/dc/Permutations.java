@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * 求1-n的全排列
+ * O(n!)
  */
 public class Permutations {
     public static final int N = 4;  //全排列大小N
